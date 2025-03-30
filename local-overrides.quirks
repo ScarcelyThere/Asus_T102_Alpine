@@ -1,0 +1,4 @@
+[ASUS Transformer Mini folio]
+MatchUdevType=keyboard
+MatchName=ASUS HID Device ASUS HID Device Keyboard
+AttrKeyboardIntegration=internal

@@ -1,0 +1,44 @@
+#!/bin/sh
+
+is_lid_closed() {
+	local lid_file="/proc/acpi/button/lid/LID/state"
+	if [ ! -f $lid_file ] ; then
+		# There's no lid, so it can't be closed.
+		return 0
+	fi
+	read line < $lid_file
+	set -- $line
+	case "$2" in
+		closed)
+			return 1
+			;;
+		*)
+			return 0
+			;;
+	esac
+}
+
+enter_s0ix() {
+	# When closing or opening the folio, it takes a
+	#  few moments for the devices to be disconnected
+	#  and reconnected. There's also the possibility
+	#  of charger connections and disconnections, which
+	#  wake the system. Give a second of time around
+	#  the sleep request to allow for these events.
+	sleep 1s
+	echo -n freeze > /sys/power/state
+	sleep 1s
+}
+
+# At first, the lid is closed, or why were we invoked?
+lid_closed=1
+while [ $lid_closed -eq 1 ] ; do
+	enter_s0ix
+
+	is_lid_closed
+	lid_closed=$?
+
+	if [ $lid_closed -eq 1 ] ; then
+		echo "Awoken with the folio closed. Returning to sleep."
+	fi
+done

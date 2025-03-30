@@ -1,5 +1,6 @@
 Alpine Linux on the Asus Transformer Mini T102A
 ===============================================
+
 The Asus Transformer Mini (model T102A or T102HA, which seem
 interchangeable) is mostly functional with Alpine's stock
 kernel. There's support for almost everything in the kernel,
@@ -9,6 +10,7 @@ to sleep when the folio is closed.
 
 Kernel Configuration
 --------------------
+
 `T102HA.config` is the kernel configuration I've built based
 on what the firmware reports through ACPI tables and `dmesg`
 logs. Note that the DSDT shows several power management chips
@@ -24,6 +26,7 @@ messages mention the EC.
 
 S0ix Support
 ------------
+
 S0i3 only works once from the framebuffer console. After the
 first suspend and resume, the system won't enter deep sleep
 again as long as the framebuffer console remains active. The
@@ -39,6 +42,7 @@ sense for the desktop use case.
 
 ACPI Sleep
 ----------
+
 The Power/Sleep button on the tablet is mapped to PWRF,
 which Alpine's default ACPI handler treats as instant
 shutdown by invoking `poweroff`. I just removed this handler.
@@ -51,6 +55,7 @@ wakes the tablet up for a very short time.
 
 Issues
 ------
+
 I use `kanshi` to rotate my Wayland sessions, and I include
 `fbcon=rotate:1` on my kernel's command line. The tablet
 defaults to portrait mode. I don't have the accelerometer
@@ -61,10 +66,12 @@ The folio appears to the system as USB devices, which meant
 disable-while-typing couldn't be enabled, as the folio
 was detected as an external keyboard (which I guess is the
 case!) Adding a quirk in
-`/etc/libinput/local-overrides.quirks` corrected this.
+`/etc/libinput/local-overrides.quirks` corrected this,
+courtesy of [werefkin's post](https://bbs.archlinux.org/viewtopic.php?id=300477).
 
 How to Use These
 ----------------
+
 `T102HA.config` is a kernel configuration file.
 
 Place `local-overrides.quirks` in `/etc`. It marks the

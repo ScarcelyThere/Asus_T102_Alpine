@@ -20,10 +20,6 @@ successfully found one. From a disassembly of the DSDT, it
 appears there's support for several PMCs, but only one is
 selected based on a value from an operation region.
 
-ACPI EC support is included, but the DSDT's _STA_ method
-returns zero, so I may remove support for this. No kernel
-messages mention the EC.
-
 S0ix Support
 ------------
 

@@ -20,6 +20,9 @@ successfully found one. From a disassembly of the DSDT, it
 appears there's support for several PMCs, but only one is
 selected based on a value from an operation region.
 
+I've had success passing `btusb.reset=N` on the kernel
+command line.
+
 S0ix Support
 ------------
 

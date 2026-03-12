@@ -1,0 +1,7 @@
+#!/bin/sh
+
+. /etc/acpi/functions.sh
+
+if ! is_on_power ; then
+	enter_s0ix
+fi

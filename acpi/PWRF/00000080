@@ -1,0 +1,4 @@
+#!/bin/sh
+
+. /etc/acpi/functions.sh
+enter_s0ix

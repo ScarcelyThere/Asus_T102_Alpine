@@ -41,13 +41,14 @@ ACPI Sleep
 
 The Power/Sleep button on the tablet is mapped to PWRF,
 which Alpine's default ACPI handler treats as instant
-shutdown by invoking `poweroff`. I just removed this handler.
+shutdown by invoking `poweroff`. I changed this to put the
+tablet to sleep.
 
-The LID handler script I wrote puts the tablet to sleep, then
-upon waking up checks whether the lid is still closed, and
-goes back to sleep if it is. This way, connecting or
-disconnecting the charger while the folio is closed only
-wakes the tablet up for a very short time.
+The LID handler script I wrote checks for an AC connection,
+and sleeps if there isn't one. Unfortunately, opening the
+folio doesn't wake the display up like this. I've had luck
+pressing Power/Sleep, waiting a moment, and then pressing
+a key to wake the tablet up.
 
 Issues
 ------
